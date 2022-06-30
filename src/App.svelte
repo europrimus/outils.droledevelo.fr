@@ -10,10 +10,10 @@
   <h1>Calcul de braquet</h1>
 
   <h2>Mon vélo</h2>
-    <p>plateaux :
+    <p>plateaux (nb dents):
       <Gearset bind:gearsets={cranksets} name="cranksets" />
     </p>
-    <p>pignons :
+    <p>pignons (nb dents):
       <Gearset bind:gearsets={cogsets}  name="cogsets" />
     </p>
   {#if cranksets && cogsets}
