@@ -25,13 +25,14 @@
 </script>
 
 {#each $gearsets as gearset}
-  <span contenteditable="true" bind:textContent={gearset} type=number min=10 max=100></span>
+  <input type="number" bind:value={gearset} min=5 max=100 />
 {/each}
 <button on:click={addGearset}>+</button>
 <button on:click={removeGearset}>-</button>
 
 <style>
-  span {
+  input {
+    width: 3em;
     margin: 0.2em;
     padding: 0.1em 0.4em;
     background: #f0f0f0;
