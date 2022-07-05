@@ -87,4 +87,11 @@
     transform: rotate(-90deg);
   }
 
+  input {
+    width: 3em;
+    margin: 0.2em;
+    padding: 0.1em 0.4em;
+    background: #f0f0f0;
+  }
+
 </style>
