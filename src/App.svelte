@@ -6,6 +6,9 @@
   let cranksets;
   let cogsets;
   let circumference;
+  let rpm;
+
+  const cmPerMinute2kmPerHour = 100000/60;
 
   onMount(() => {
           circumference = writable(
@@ -15,6 +18,15 @@
           );
           circumference.subscribe(
             val => localStorage.setItem("driveTrain_circumference", JSON.stringify(val))
+          );
+
+          rpm = writable(
+            JSON.parse(
+              localStorage.getItem("driveTrain_rpm")
+            ) || {min:30,max:90}
+          );
+          rpm.subscribe(
+            val => localStorage.setItem("driveTrain_rpm", JSON.stringify(val))
           );
   })
 </script>
@@ -33,6 +45,13 @@
       <input type="number" bind:value={$circumference} min=50 max=1000 />
       cm
     </p>
+    {#if rpm && circumference}
+      <p>fréquence de pédalage :
+        <input type="number" bind:value={($rpm).min} min=0 max=180 />
+        <input type="number" bind:value={($rpm).max} min=0 max=180 />
+      </p>
+    {/if}
+
   {#if cranksets && cogsets}
   <h2>Braquets</h2>
     <table>
@@ -86,6 +105,40 @@
       {/each}
     </table>
   {/if}
+
+  {#if cranksets && cogsets && circumference && rpm}
+  <h2>Vitesse</h2>
+    <p>pour une fréquence de pédallage entre {$rpm.min} ~ {$rpm.max} tours/min</p>
+    <table>
+      <tr>
+        <td colspan="2" class="noborder"></td>
+        <th colspan={$cogsets.length} class="noborder">pignons</th>
+      </tr>
+      <tr>
+        <td colspan="2" class="noborder"></td>
+        {#each $cogsets as cogset}
+          <th>{cogset}</th>
+        {/each}
+      </tr>
+      {#each $cranksets as crankset}
+      <tr>
+        {#if $cranksets[0] == crankset}
+          <th rowspan={$cranksets.length} class="vertical noborder">plateaux</th>
+        {/if}
+        <th>{crankset}</th>
+        {#each $cogsets as cogset}
+          <td>
+            {(crankset/cogset*$circumference*$rpm.min/cmPerMinute2kmPerHour).toFixed(0)}
+            ~
+            {(crankset/cogset*$circumference*$rpm.max/cmPerMinute2kmPerHour).toFixed(0)}
+            km/h
+          </td>
+        {/each}
+      </tr>
+      {/each}
+    </table>
+  {/if}
+
 </main>
 
 <style>
