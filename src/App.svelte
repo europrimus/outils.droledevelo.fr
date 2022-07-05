@@ -1,9 +1,22 @@
 <script>
+  import { onMount } from 'svelte';
+  import { writable } from "svelte/store";
   import Gearset from "./lib/Gearset.svelte";
 
   let cranksets;
   let cogsets;
+  let circumference;
 
+  onMount(() => {
+          circumference = writable(
+            JSON.parse(
+              localStorage.getItem("driveTrain_circumference")
+            ) || []
+          );
+          circumference.subscribe(
+            val => localStorage.setItem("driveTrain_circumference", JSON.stringify(val))
+          );
+  })
 </script>
 
 <main>
@@ -15,6 +28,10 @@
     </p>
     <p>pignons (nb dents):
       <Gearset bind:gearsets={cogsets}  name="cogsets" />
+    </p>
+    <p>circonférence :
+      <input type="number" bind:value={$circumference} min=50 max=1000 />
+      cm
     </p>
   {#if cranksets && cogsets}
   <h2>Braquets</h2>
@@ -37,6 +54,33 @@
         <th>{crankset}</th>
         {#each $cogsets as cogset}
           <td>{(crankset/cogset).toFixed(2)}</td>
+        {/each}
+      </tr>
+      {/each}
+    </table>
+  {/if}
+
+  {#if cranksets && cogsets && circumference}
+  <h2>Développement</h2>
+    <table>
+      <tr>
+        <td colspan="2" class="noborder"></td>
+        <th colspan={$cogsets.length} class="noborder">pignons</th>
+      </tr>
+      <tr>
+        <td colspan="2" class="noborder"></td>
+        {#each $cogsets as cogset}
+          <th>{cogset}</th>
+        {/each}
+      </tr>
+      {#each $cranksets as crankset}
+      <tr>
+        {#if $cranksets[0] == crankset}
+          <th rowspan={$cranksets.length} class="vertical noborder">plateaux</th>
+        {/if}
+        <th>{crankset}</th>
+        {#each $cogsets as cogset}
+          <td>{(crankset/cogset*$circumference/100).toFixed(2)} m/tour</td>
         {/each}
       </tr>
       {/each}
