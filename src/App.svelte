@@ -53,6 +53,10 @@
     {/if}
 
   {#if cranksets && cogsets}
+    <h2>Dérailleurs</h2>
+      <p><em>Denture maximal plateau :</em> {Math.max(...$cranksets)} dents</p>
+      <p><em>Limite arrière :</em> {Math.min(...$cogsets)}-{Math.max(...$cogsets)}</p>
+      <p><em>Capacité minimal :</em> {Math.max(...$cranksets) - Math.min(...$cranksets) + Math.max(...$cogsets) - Math.min(...$cogsets)} dents</p>
   <h2>Braquets</h2>
     <table>
       <tr>
