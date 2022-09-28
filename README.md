@@ -1,5 +1,16 @@
 # gear train
 
+## install
+install dépendancies  
+```npm install```
+
+run localy for test  
+```npm run dev```
+
+build  
+```npm run build```  
+the compiled web site is in **dist** directory
+
 ## doc
  - [wikipedia](https://en.wikipedia.org/wiki/Gear_train)
  - [magazine.deporvillage.fr](https://magazine.deporvillage.fr/chape-de-derailleur-arriere-sur-un-velo-de-route-comment-choisir-la-bonne/) Calculate Cage length
