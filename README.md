@@ -1,7 +1,8 @@
 # gear train
 
 ## doc
-[wikipedia](https://en.wikipedia.org/wiki/Gear_train)
+ - [wikipedia](https://en.wikipedia.org/wiki/Gear_train)
+ - [magazine.deporvillage.fr](https://magazine.deporvillage.fr/chape-de-derailleur-arriere-sur-un-velo-de-route-comment-choisir-la-bonne/) Calculate Cage length
 
 ## existing
  - [sheldonbrown](https://www.sheldonbrown.com/gear-calc.html) server side (need reload), predefined cassette, and internal hub, but can't combine internal hub at crank and at wheel
